@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de livros</title>
+    <link rel="shortcut icon" type="image/png" href="img/5832416.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Cadastro de livros</h1>
+
+    <div class="formulario">
+        <input id="nomeLivro" placeholder="Nome" type="text">
+        <input id="autorLivro" placeholder="Autor" type="text">
+        <input id="anoLivro" placeholder="Ano" type="number">
+    </div>
+
+    <div class="botoes">
+        <button onclick="adicionar()">Adicionar Livro</button>
+        <button onclick="mostrarLivroAtual()">Mostrar Livro Atual</button>
+        <button onclick="mostrarProximoLivro()">Próximo Livro</button>
+        <button onclick="mostrarLivroAnterior()">Livro Anterior</button>
+        <button onclick="quantLivros()">Mostrar quantidade</button>
+    </div>
+
+    <div id="resultado">
+
+    </div>
+    <script>
+        let biblioteca = [];
+        let resposta = "Cadastre um Livro!";
+        let indiceAtual = -1; // Inicializa o índice atual como -1 (nenhum livro exibido)
+
+        function cadastro(nome, autor, ano) {
+            var livro = {
+                titulo: nome,
+                autor: autor,
+                ano: ano
+            };
+            biblioteca.push(livro);
+        }
+
+        function adicionar() {
+            let nome = document.getElementById('nomeLivro').value;
+            let autor = document.getElementById('autorLivro').value;
+            let ano = document.getElementById('anoLivro').value;
+            cadastro(nome, autor, ano);
+        }
+
+        function mostrarLivroAtual() {
+            if (biblioteca.length === 0) {
+                document.getElementById("resultado").textContent = "Nenhum livro cadastrado.";
+            } else {
+                const livroAtual = biblioteca[indiceAtual];
+                document.getElementById("resultado").innerHTML = `Título: ${livroAtual.titulo}<br>Autor: ${livroAtual.autor}<br>Ano: ${livroAtual.ano}`;
+            }
+        }
+
+        function mostrarProximoLivro() {
+            if (indiceAtual < biblioteca.length - 1) {
+                indiceAtual++;
+            }
+            mostrarLivroAtual();
+        }
+
+        function mostrarLivroAnterior() {
+            if (indiceAtual > 0) {
+                indiceAtual--;
+            }
+            mostrarLivroAtual();
+        }
+
+        function quantLivros() {
+            let quantidade = biblioteca.length;
+            document.getElementById("resultado").textContent = `Quantidade de livros cadastrados: ${quantidade}`;
+        }
+
+        document.getElementById('resultado').textContent = resposta;
+
+    </script>
+
+</body>
+
+</html>
